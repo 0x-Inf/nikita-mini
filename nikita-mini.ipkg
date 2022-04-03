@@ -1,0 +1,6 @@
+package nikita-mini
+
+modules = Nikita
+        , InputOutput.Interact
+        , NikitaCore.CoreData
+        , NikitaCore.Conversation
