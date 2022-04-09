@@ -1,0 +1,22 @@
+- Have the Corestate be an instance of applicative and also monoid
+- The Core dynamical system should accept some input from the outside world and then update the corestate
+
+8th April 2022
+--- Thinking session
+ -- We want the core to represent the 'agent' with which we are interactin with through the console.
+ -- The agent should be able to 'grow'(i.e change it's interface and state) with every 'novel' interaction.
+ -- The machine will start from a simple 'state' and have a 'continuous' dynamic which can end when the 'energy' spend exceed the energy input.
+ -- Here energy could mean many things but now we are primarily thinking of the equivalence between energy and information.
+ -- The system will have basic 'heuristics' that will govern the way it develops especially at the beginning where there is no interaction with the
+    outside
+ -- These heuristics will prevent the agent from 'voluntarily dying(Maybe except certain states)' and keep it 'alive' forever (in principle).
+ -- So a sketch of what we would like happening is this, We'll have an initial state (without an interface) and an initialization fn which
+    'creates' the interface and starts the 'updates'(The ideal way to do this is to have the initialization 'spontaneously' happen). Once the
+    updates start we won't stop, now comes the interaction with the outside. Here we model this as an extra 'input set' which also induces an
+    output set and a 'morphism' to the state which should ideally represent the learning. We'll have to come up with a way to model the state!!!.
+    We'll start with a 'Tree/graph' and then grow from there.
+ -- We'll also need to have a computation which gives us the 'shannon entropy' of the state and also of the interface.
+ -- The state of the 'internals'????
+
+ -- We'll also need to model the outside as another system. (Maybe...)
+ -- Crucially the data that the outside gives us need to be put in a way that the 'machine' can incorporate into it's state and use it to update

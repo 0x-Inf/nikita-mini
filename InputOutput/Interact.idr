@@ -20,7 +20,8 @@ updateNikitaState (MkInteractState size state) newStateItem = MkInteractState _ 
     addToStateData [] = [newStateItem]
     addToStateData (item :: items) = item :: addToStateData items
 
-
+updateCoreState : (core_state : CoreState) -> (interaction_state : InteractState) -> CoreState
+updateCoreState (MkNikitaCoreState size current state_rep) (MkInteractState k items) = ?updateCoreState_rhs_2
 
 -- public export
 data InteractOption : Type where

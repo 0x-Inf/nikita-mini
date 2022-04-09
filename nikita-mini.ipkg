@@ -4,3 +4,4 @@ modules = Nikita
         , InputOutput.Interact
         , NikitaCore.CoreData
         , NikitaCore.Conversation
+        , DynamicalSystemPrims.DynamicalSystem 
