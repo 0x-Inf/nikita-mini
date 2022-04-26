@@ -1,7 +1,7 @@
 - Have the Corestate be an instance of applicative and also monoid
 - The Core dynamical system should accept some input from the outside world and then update the corestate
 
-8th April 2022
+8th April 2022, someday, 14 April 2022
 --- Thinking session
  -- We want the core to represent the 'agent' with which we are interactin with through the console.
  -- The agent should be able to 'grow'(i.e change it's interface and state) with every 'novel' interaction.
@@ -17,6 +17,52 @@
     We'll start with a 'Tree/graph' and then grow from there.
  -- We'll also need to have a computation which gives us the 'shannon entropy' of the state and also of the interface.
  -- The state of the 'internals'????
+ -- A graph that is made up of nodes that are dynamical systems and the edges as some relationship between the nodes inputs and outputs as dynamical system could be used as a good state
+ -- The above idea combined with the idea of queries in a 'universe' of dynamical systems sounds interesting
+ -- Also this (Maybe require) some way of producing dynamical systems (for instance we have a certain coalgebra that can 'reduces' to an infinite 'graph' of dynamical systems in all 'directions', i.e
+    for every node we can move downwards and get more dyanmical systems infinitely and for each node they are part of dynamical systems that 'go upwards' infinitely)
+ -- And we also want to pass information around in all directions using some form of an optic...(one that is like lenses and traditional optics but is not constrained in forward and backward information
+ flow)
 
  -- We'll also need to model the outside as another system. (Maybe...)
  -- Crucially the data that the outside gives us need to be put in a way that the 'machine' can incorporate into it's state and use it to update
+
+-- Development idea :
+ - For the nikita Dynamical system we need to make it into a universe of Dynamical systems. An implementation idea involves using the absractions in  DynamicalSystemPrims to define This
+  'infinite' graph of dynamical systems
+
+-- In idris a good way to control when to processs infinite data structures is to use a finite source. In our case we'll use the 'outside' world as that fininte structure. Conceptually this
+   will provide the energy for the infinite dynamical system to 'start dynamicing'.
+
+-- Given that we are primarily workin with text information for this one, we need a way to represent text data in the infinite structure, it should be a way that is language agnostic => numbers...
+   Maybe. Or some weird structure that represent something that has structure. A canonical thing that comes to mind is a category.... Given numbers can be thought of as categories this sounds
+   promising. Also an equivalence between comodules of interfaces of dynamical systems and categories gives an interestinig avenue for inquiry.
+
+-- Talking of  infinite structures that interact with the world, we know that at any point the world has a state, for our purposes the state is what text is being input into the console. This
+   hints that we might need to talk about the state of the infinite structure, but given the nature of the infinite structure (i.e its infinite) defining a state seems odd, because state are
+   from what i can tell seem to be finite stuff, although given that a state in functional programmming corresponds to a state monad, Maybe we can equip our monad with an infinite structure, this
+   however brings us the problem of describing the state to the 'real world'... one idea would be to use the result of computation on the state; this is akin to the morphism that takes a state
+   of a dynamical system and an input to produce an output but combined also with the readout fn....
+
+-- There is this idea that we can use the natural structure of 'running dynamics'(Maybe comonoids) to get the whole infinite codata (We think this is a coalgebra of sorts... later found
+   about C-coalgebras where c is a comonoid... and comonoids can be basically infinite dynamical systems depending on the data of the comonoid ) thing.
+
+-- The comonoid is a category but with a cofunctor; are there any higher category theoretic notions that are also represented by some structure of poly comonoids.
+
+-- Implementation Idea: it seems that there would two 'major states' for the system. One that holds the 'outside world representation', and another that holds the 'dynamical systems world'. For
+   the interactive program to able to read and write to the respective state. For the world representation state it's pretty straightforward; we just extend the associated command type with
+   additional command to manipulate the state. For the 'internal state'(probably made up of multiple states), we'll have to update it based on specific computations of the (infinite D.S) and also
+   the information gotten from the new state of the 'world'. This is the tricky one, for the purposes of our system we'll have that this internal updates are happening 'automatically' like the
+   'instructions' of what and how to update are inherent within it, the outside state is sort of used as a guide.
+
+
+
+-- Development notes 26 Apr 2022
+  - We've redone the interact file to handle for state more fluidly though this is not as good as we want it to be
+  - We've seem that we require a 'two stage' process for every interaction; i.e the interaction changes the state of the 'world' structure which then induces a change in the internal 'inf worlds' representation
+    which then (Maybe changes) the 'world' structure and if the change is present it is then broadcast to the outside world
+  - We need to implement better nested structures that represent the interactState
+  - We should implement 'carry over' functionality where we are able to maintain the previous state (both world and 'internal') such that when the machine is started again, it can resume from this state
+  - We need to start thinking of implementation ideas for the Inf comonoid of 'dynamical systems' and especially how it will be able to 'grow' itself using energy from interactions with the out world.
+  - We also ought to figure out how our state can benefit from being dependently typed...
+  - Implementation ideas for the conduit between the state of the 'external world' and the internal world. 

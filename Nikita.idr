@@ -3,5 +3,9 @@ import Data.StateStore
 import InputOutput.Interact
 
 
+partial
 main : IO ()
-main = replWith (MkInteractState _ []) "Nikita: " processInteraction
+main = do (Just _, state) <-
+            run forever initState interact
+                | _ => putStrLn "Ran Out of energy"
+          putStrLn ("Final State: " ++ show state)
